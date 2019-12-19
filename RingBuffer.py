@@ -3,7 +3,7 @@ MAX_PRIORITY = 1000
 
 class Pair():
 
-    def __init__(self, value, key):
+    def __init__(self, key, value):
         self.value = value
         if(type(key) is not int):
             raise Exception("key is not int")
@@ -22,13 +22,13 @@ class Pair():
         self.value = value
 
     def __str__(self):
-        return "(" + str(self.value) + " , " + str(self.key) + ")"
+        return "(" + str(self.key) + " -> " + str(self.value) + ")"
 
 
 class PriorityRingBuffer():
 
     def __init__(self, size):
-        self.stack = [Pair(0,MAX_PRIORITY)] * size
+        self.stack = [Pair(MAX_PRIORITY,0)] * size
         self.cursor = 0
         
     def getSortKey(self , pair):
@@ -46,7 +46,7 @@ class PriorityRingBuffer():
 
     def extract_minimum(self):
         pair = self.stack[0]
-        self.stack[0] = Pair(0 , MAX_PRIORITY)
+        self.stack[0] = Pair(MAX_PRIORITY , 0)
         self.shuffle()
         return pair
     
